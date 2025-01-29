@@ -38,6 +38,5 @@ fs.readFile(path.join(__dirname, 'notes', 'december.txt'), 'utf-8', (err, date) 
         console.log(date);
         
 })
-})
-    
+})   
 })
