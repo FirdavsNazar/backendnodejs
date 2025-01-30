@@ -4,16 +4,14 @@
   "description": "NodeJs starter lesson",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "nodejs"
   ],
   "author": "Firdavsbek",
   "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^5.3.3"
-  },
   "devDependencies": {
     "nodemon": "^3.1.9"
   }
