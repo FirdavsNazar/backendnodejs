@@ -6,7 +6,7 @@ const server = http.createServer((request, response) =>{
 
     console.log(request.url);
 
-    response.write('Hello world')
+    response.write('Hello world 2')
     response.end()
     
 })
