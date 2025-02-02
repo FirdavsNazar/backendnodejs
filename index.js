@@ -13,6 +13,8 @@
 //for checking nodeman 
 
 const http = require('http')
+const fs = require('fs')
+const path = require('path')
 
 const server = http.createServer((req, res) =>{
     // request - so'rov
@@ -20,25 +22,28 @@ const server = http.createServer((req, res) =>{
     if(req.method === 'GET'){
         res.writeHead(200, {'Content-Type': 'text/html'})
 
-        res.end(
-            `<h2>Send name </h2>
-            <form method="post" action="/">
-                 <input name="name" required placeholder="Enter your name" />
-                 <button type="submit"> Send name </button>
-            </form>` )
-    } else if (req.method === 'POST') {
-        const body = []
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-
-        req.on('data', data =>{
-            body.push(Buffer.from(data))
-        })
-
-        req.on('end', () => {
-            const message = body.toString().split('=') [1]
-            res.end(`Name successfully added: ${message}`)
-        })
+        if(req.url === '/'){
+            fs.readFile(path.join(__dirname, 'template', 'index.html'), 'utf-8', (err, content) => {
+                if(err) throw err
+                res.end(content)
+        })  
     }
+
+        } else if (req.method === 'POST') {  // ✅ Checking if request is a POST request
+            const body = [];  // ✅ Creating an empty array to store incoming data
+        
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); // ✅ Setting the response header
+        
+            req.on('data', data => {  // ✅ When data is received, push it into the array
+                body.push(Buffer.from(data));  // ✅ Convert incoming data to a Buffer and store it
+            });
+        
+            req.on('end', () => {  // ✅ Once all data is received
+                const message = body.toString().split('=')[1];  // ✅ Convert buffer to string, extract data
+                res.end(`Name successfully added: ${message}`);  // ✅ Send response back to client
+            });
+        }
+        
     
 })
 
